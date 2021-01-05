@@ -13,11 +13,10 @@ class Pelicula(models.Model):
     nombre = models.CharField(max_length=50)
     direccion = models.CharField(max_length=50)
     genero = models.ManyToManyField(Genero)
-    fecha_estreno = models.DateTimeField(auto_now_add=True)
+    fecha_estreno = models.DateField(auto_now_add=True)
     sinopsis = models.TextField()
 
     def __str__(self):
-        """Unicode representation of Pelicula."""
         return self.nombre
 
 class Usuario(models.Model):
@@ -25,9 +24,15 @@ class Usuario(models.Model):
     fecha_de_nacimiento = models.DateField(auto_now=False,auto_now_add=True)
     favoritos = models.ManyToManyField(Pelicula)
     bloqueado = models.BooleanField(default=False)
+    def __str__(self):
+        return self.usuario.username
+    
 
 class Comentario(models.Model):
     texto = models.CharField(max_length=255)
     fecha = models.DateField(auto_now=False,auto_now_add=True)
     pelicula = models.ForeignKey(Pelicula, on_delete=models.CASCADE)
     usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return 'comentario de '+ self.usuario.usuario.username
