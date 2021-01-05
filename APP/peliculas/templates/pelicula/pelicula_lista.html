@@ -24,11 +24,13 @@
                 </td>
                     <td>{{ peli.sinopsis }}</td>
                     <td>
-                        <a name="" id="" class="btn" href="{% url 'pelicula:detalle' peli.pk %}" role="button">Detalle</a>
+                        <a class="btn" href="{% url 'pelicula:detalle' peli.pk %}">Detalle</a>
+                        <a class="btn" href="{% url 'pelicula:editar' peli.pk %}">Editar</a>
                         <form action="{% url 'pelicula:eliminar' peli.pk %}" method="post">
                             {% csrf_token %}
                             <button type="submit" class="btn">Eliminar</button>
                         </form>
+                        
                     </td>
                 </tr>
                 {% endfor %}
