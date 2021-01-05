@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.views.generic import CreateView,UpdateView,ListView,DeleteView,DetailView
 from .models import Pelicula, Usuario, Genero, Comentario
 from django.urls import reverse_lazy
-from .forms import PeliculaForm
+from .forms import PeliculaForm, UsuarioForm,User
 from django.forms import forms
+from django.contrib.auth.views import LoginView,LogoutView
 
 # Create your views here.
 
@@ -34,3 +35,13 @@ class PeliculaUpdateView(UpdateView):
     template_name = "pelicula/pelicula_form.html"
     success_url = reverse_lazy('pelicula:lista')
     
+
+class UsuarioCreateView(CreateView):
+    model = Usuario
+    form_class = UsuarioForm
+    template_name = "usuario/usuario_form.html"
+    success_url = reverse_lazy('pelicula:lista')
+
+
+class Login(LoginView):
+    template_name ="usuario/usuario_login.html"
