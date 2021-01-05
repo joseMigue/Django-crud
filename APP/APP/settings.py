@@ -121,3 +121,5 @@ USE_TZ = False
 STATIC_URL = '/static/'
 LOGIN_URL = '/'
 LOGIN_REDIRECT_URL = 'pelicula:lista'
+LOGOUT_REDIRECT_URL = 'login'
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.AllowAllUsersModelBackend']

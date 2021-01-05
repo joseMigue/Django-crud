@@ -35,13 +35,12 @@ class PeliculaUpdateView(UpdateView):
     template_name = "pelicula/pelicula_form.html"
     success_url = reverse_lazy('pelicula:lista')
     
-
 class UsuarioCreateView(CreateView):
     model = Usuario
     form_class = UsuarioForm
     template_name = "usuario/usuario_form.html"
     success_url = reverse_lazy('pelicula:lista')
 
-
 class Login(LoginView):
+    redirect_authenticated_user = 'pelicula:lista'
     template_name ="usuario/usuario_login.html"
