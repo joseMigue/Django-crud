@@ -7,9 +7,6 @@ from django.forms import forms
 from django.contrib.auth.views import LoginView,LogoutView
 
 # Create your views here.
-
-
-
 class PeliculaCreateView(CreateView):
     model = Pelicula
     form_class = PeliculaForm
