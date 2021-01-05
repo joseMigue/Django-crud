@@ -16,7 +16,6 @@ class PeliculaCreateView(CreateView):
     success_url = reverse_lazy('pelicula:lista')
 
 
-
 class PeliculaListView(ListView):
     model = Pelicula
     template_name = "pelicula/pelicula_lista.html"
@@ -27,6 +26,11 @@ class PeliculaDetailView(DetailView):
     template_name = "pelicula/pelicula_detalle.html"
     
     
+
+class PeliculaDeleteView(DeleteView):
+    model = Pelicula
+    form_class = PeliculaForm
+    success_url = reverse_lazy('pelicula:lista')
 
 
     
