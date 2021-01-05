@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <table class="table table-striped table-inverse table-responsive">
+        <thead class="thead-inverse">
+            <tr>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Generos</th>
+                <th>Sinopsis</th>
+                <th>Opciones</th>
+            </tr>
+            </thead>
+            <tbody>
+                
+                {% for peli in object_list %}
+                <tr>
+                    <td>{{ peli.nombre }}</td>
+                    <td>{{ peli.direccion }}</td>  
+                    <td>        
+                {% for p in peli.genero.all %}
+                    {{ p.nombre }}
+                {% endfor %}
+                </td>
+                    <td>{{ peli.sinopsis }}</td>
+                    <td>
+                        <a href="{% url 'pelicula:detalle' peli.pk %}">Detalle</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+    </table>
+{% endblock body %}
+    
