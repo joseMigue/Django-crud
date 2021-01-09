@@ -1,6 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block body %}
+
     <h3>Nombre de la pelicula: {{ pelicula.nombre }}</h3>
     <h3>Direccion: {{ pelicula.direccion }}</h3>
     <h3>Sinopsis: {{ pelicula.sinopsis }}</h3>    
@@ -9,7 +10,13 @@
     {% for p in pelicula.genero.all %}
         {{ p.nombre }}
     {% endfor %}
-    </h3>
-        
+    </h3> 
+
+    {% if pelicula in user.usuario.favoritos.all %}
+        <a href="{% url 'pelicula:eliminar_favorito' pelicula.pk%}">Eliminar de Favoritos</a>
+    {% else %}
+    <a href="{% url 'pelicula:agregar_favorito' pelicula.pk %}">Agregar Favorito</a>
+    {% endif %}
+    
 {% endblock body %}
     

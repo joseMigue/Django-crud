@@ -25,8 +25,15 @@ class Usuario(models.Model):
     fecha_de_nacimiento = models.DateField(auto_now=False,auto_now_add=True)
     favoritos = models.ManyToManyField(Pelicula)
     bloqueado = models.BooleanField(default=False)
+
     def __str__(self):
         return self.usuario.username
+
+    def agregar_favorito(self,pelicula):
+        self.favoritos.add(pelicula)
+        
+    def eliminar_favorito(self,pelicula):
+        self.favoritos.remove(pelicula)
 
 @receiver(post_save, sender= User)
 def crear_usuario(sender, **kwargs):

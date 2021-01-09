@@ -15,10 +15,7 @@
 <body>
     {% if user.is_authenticated %}
     <nav class="nav justify-content-center">
-
-
-
-
+        
         {% if perms.peliculas.add_pelicula %}
             <a class="nav-link" href="{% url 'pelicula:crear'%}">Crear</a>
         {% endif %}
@@ -28,7 +25,7 @@
         {% endif %}
 
         {% if perms.peliculas.view_pelicula %}
-            <a class="nav-link" href="#">Favoritos</a>
+            <a class="nav-link" href="{%url 'pelicula:favoritos'%}">Favoritos</a>
         {% endif %}
 
         <a class="nav-link" href="{%url 'logout'%}">Cerrar Sesion</a>

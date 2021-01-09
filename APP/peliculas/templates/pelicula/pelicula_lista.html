@@ -5,31 +5,28 @@
         <thead class="thead-inverse">
             <tr>
                 <th>Nombre</th>
-                <th>Direccion</th>
                 <th>Generos</th>
-                <th>Sinopsis</th>
                 <th>Opciones</th>
             </tr>
             </thead>
             <tbody>
-                
                 {% for peli in object_list %}
                 <tr>
-                    <td>{{ peli.nombre }}</td>
-                    <td>{{ peli.direccion }}</td>  
+                    <td>{{ peli.nombre }}</td> 
                     <td>        
-                {% for p in peli.genero.all %}
-                    {{ p.nombre }}
-                {% endfor %}
-                </td>
-                    <td>{{ peli.sinopsis }}</td>
+                        {% for p in peli.genero.all %}
+                            {{ p.nombre }}
+                        {% endfor %}
+                    </td>
                     <td>
                         {% if perms.peliculas.view_pelicula %}
                             <a class="btn" href="{% url 'pelicula:detalle' peli.pk %}">Detalle</a>
                         {% endif %}
+                        
                         {% if perms.peliculas.change_pelicula %}  
                             <a class="btn" href="{% url 'pelicula:editar' peli.pk %}">Editar</a>
                         {% endif %}
+                        
                         {% if perms.peliculas.delete_pelicula %}
                             <form action="{% url 'pelicula:eliminar' peli.pk %}" method="post">
                                 {% csrf_token %}
