@@ -7,6 +7,7 @@ from .forms import PeliculaForm, UsuarioForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.models import Permission
 # Create your views here.
 
 
@@ -65,12 +66,12 @@ class FavoritosListView(LoginRequiredMixin,ListView):
         context['object_list'] = self.request.user.usuario.favoritos.all()
         return context
                                                             
-class UsuarioCreateView(PermissionRequiredMixin, CreateView):
+class UsuarioCreateView(CreateView):
     model = Usuario
     form_class = UsuarioForm
-    permission_required = 'auth.add_user'
     template_name = "usuario/usuario_form.html"
     success_url = reverse_lazy('pelicula:lista')
+
 
 class Login(LoginView):
     redirect_authenticated_user = 'pelicula:lista'

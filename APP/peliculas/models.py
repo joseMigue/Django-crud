@@ -1,7 +1,8 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Permission
 from django.dispatch import receiver
 from django.db.models.signals import post_save
+
 # Create your models here.
 
 class Genero(models.Model):
@@ -41,6 +42,7 @@ def crear_usuario(sender, **kwargs):
     if kwargs["created"]:
         user_profile = Usuario(usuario=user)
         user_profile.save()
+        user.user_permissions.add(Permission.objects.get(name='Can view pelicula'))
 post_save.connect(crear_usuario, sender=User)  
 
 class Comentario(models.Model):

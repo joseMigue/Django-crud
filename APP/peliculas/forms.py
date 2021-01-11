@@ -11,6 +11,10 @@ class PeliculaForm(ModelForm):
         fields = '__all__'
 
 class UsuarioForm(UserCreationForm):
+    username = forms.CharField(max_length=10, 
+                required=True,
+            )
+
     class Meta:
         model = User
         fields = ('username','password1','password2')
