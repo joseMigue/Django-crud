@@ -6,13 +6,13 @@ from django.db.models.signals import post_save
 # Create your models here.
 
 class Genero(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=50,unique=True)
 
     def __str__(self):
         return self.nombre
 
 class Pelicula(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=50,unique=True)
     direccion = models.CharField(max_length=50)
     genero = models.ManyToManyField(Genero)
     fecha_estreno = models.DateField(auto_now_add=True)
