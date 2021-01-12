@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <p>Mi Perfil </p>
+    <p>usuario: {{ user.username }}</p>
+    <p>Nombre: {{ user.first_name }}</p>
+    <p>Apellido: {{ user.last_name }}</p>
+    <p>domicilio: {{ usuario.domicilio }}</p>
+    <p>fecha de nacimiento: {{ usuario.fecha_de_nacimiento }}</p>
+    <p>telefono: {{ usuario.telefono }}</p>
+    <a href="{%url 'pelicula:editar_perfil' usuario.pk%}">Editar</a>
+{% endblock body %}

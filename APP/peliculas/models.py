@@ -23,9 +23,10 @@ class Pelicula(models.Model):
 
 class Usuario(models.Model):
     usuario = models.OneToOneField(User, on_delete=models.CASCADE)
-    fecha_de_nacimiento = models.DateField(auto_now=False,auto_now_add=True)
+    fecha_de_nacimiento = models.DateField( null=True)
+    telefono = models.CharField(max_length=9)
+    domicilio = models.CharField(max_length=50)
     favoritos = models.ManyToManyField(Pelicula)
-    bloqueado = models.BooleanField(default=False)
 
     def __str__(self):
         return self.usuario.username
@@ -40,11 +41,18 @@ class Usuario(models.Model):
 def crear_usuario(sender, **kwargs):
     user = kwargs["instance"]
     if kwargs["created"]:
-        user_profile = Usuario(usuario=user)
+        ''' user_profile = Usuario(usuario=user)
         user_profile.save()
         user.user_permissions.add(Permission.objects.get(name='Can view pelicula'))
+        user.usuario.save()
+        '''
+        Usuario.objects.create(usuario=user)
+        user.user_permissions.add(Permission.objects.get(name='Can view pelicula'))
 post_save.connect(crear_usuario, sender=User)  
-
+@receiver(post_save, sender=User)
+def guardar_perfil(sender, instance, **kwargs):
+    instance.usuario.save()
+post_save.connect(guardar_perfil, sender=User)
 class Comentario(models.Model):
     texto = models.CharField(max_length=255)
     fecha = models.DateField(auto_now=False,auto_now_add=True)

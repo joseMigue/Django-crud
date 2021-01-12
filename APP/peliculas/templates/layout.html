@@ -27,7 +27,7 @@
         {% if perms.peliculas.view_pelicula %}
             <a class="nav-link" href="{%url 'pelicula:favoritos'%}">Favoritos</a>
         {% endif %}
-
+        <a href="{%url 'pelicula:perfil' user.pk%}" class="nav-link">Ver Perfil</a>
         <a class="nav-link" href="{%url 'logout'%}">Cerrar Sesion</a>
 
     </nav>

@@ -1,13 +1,13 @@
 from django.shortcuts import render
-from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, ListView, DeleteView, DetailView, TemplateView
 from django.views.generic.base import RedirectView
 from .models import Pelicula, Usuario, Genero, Comentario
 from django.urls import reverse_lazy
-from .forms import PeliculaForm, UsuarioForm
+from .forms import PeliculaForm, UsuarioForm,PerfilForm
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.shortcuts import get_object_or_404
-from django.contrib.auth.models import Permission
+from django.contrib.auth.models import Permission,User
 # Create your views here.
 
 
@@ -65,14 +65,29 @@ class FavoritosListView(LoginRequiredMixin,ListView):
         context = super().get_context_data(**kwargs)
         context['object_list'] = self.request.user.usuario.favoritos.all()
         return context
-                                                            
+                                                           
 class UsuarioCreateView(CreateView):
     model = Usuario
     form_class = UsuarioForm
     template_name = "usuario/usuario_form.html"
     success_url = reverse_lazy('pelicula:lista')
 
-
 class Login(LoginView):
     redirect_authenticated_user = 'pelicula:lista'
     template_name = "usuario/usuario_login.html"
+
+class PerfilDetailView(LoginRequiredMixin,UpdateView):
+
+    model = Usuario
+    form_class = PerfilForm 
+    template_name = 'usuario/perfil_form.html'
+    def get_success_url(self, **kwargs):         
+        if  kwargs != None:
+            return reverse_lazy('pelicula:perfil', kwargs = {'pk': self.request.user.pk})
+
+class PerfilView(TemplateView):
+    template_name = 'usuario/perfil.html'
+    def get_context_data(self, **kwargs):
+        context = super(PerfilView, self).get_context_data(**kwargs)
+        context['usuario'] = self.request.user.usuario
+        return context
